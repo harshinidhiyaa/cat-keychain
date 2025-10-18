@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>what cat do you feel like today?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f29a3f;
+  --card: #ffffff;
+  --text: #2b1a12;
+  --shadow: rgba(0,0,0,0.2);
+}
+
+/* cat paw cursor */
+* {
+  box-sizing: border-box;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🐾</text></svg>'), auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 28px;
+  font-family: Inter, sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* date */
+.date {
+  position: fixed;
+  bottom: 12px;
+  right: 14px;
+  font-size: 0.75rem;
+  opacity: 0.55;
+  letter-spacing: 0.05em;
+}
+
+/* title */
+h1 {
+  font-family: "Patrick Hand", cursive;
+  font-size: 2.7rem;
+  margin: 0 0 40px 0;
+  padding: 0 16px;          /* ← THIS fixes edge hugging */
+  text-align: center;       /* ← ensures center on mobile */
+}
+
+/* polaroid */
+.polaroid {
+  position: relative;
+  width: 360px;
+  height: 470px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px 16px 26px;
+  box-shadow: 0 20px 40px var(--shadow);
+  user-select: none;
+  z-index: 2;
+  transition: transform 0.12s ease;
+}
+
+/* tape */
+.polaroid::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 100px;
+  height: 26px;
+  background: rgba(255,255,255,0.45);
+  transform: translateX(-50%) rotate(-3deg);
+  border-radius: 4px;
+}
+
+/* image */
+.polaroid img {
+  width: 100%;
+  height: 330px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* caption */
+.caption {
+  margin-top: 24px;
+  text-align: center;
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.45rem;
+  color: #000;
+}
+
+/* helper */
+.flip {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 16px;
+}
+
+/* tap paw */
+.tap-paw {
+  position: fixed;
+  font-size: 28px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 32px;
+  }
+
+  .polaroid {
+    width: 92vw;
+    height: auto;
+  }
+
+  .polaroid img {
+    height: 300px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1>what cat do you feel like today?</h1>
+
+<div class="polaroid" id="card">
+  <img id="image" src="cat1.jpeg" alt="">
+  <div class="caption" id="caption">let cat eat cake</div>
+</div>
+
+<div class="flip">tap to flip</div>
+<div class="tap-paw" id="tapPaw">🐾</div>
+
+<div class="date">28-02-2026</div>
+
+<script>
+const cats = [
+  { img: "cat1.jpeg", caption: "let cat eat cake" },
+  { img: "cat2.jpeg", caption: "eeeeeh" },
+  { img: "cat3.jpeg", caption: "..." },
+  { img: "cat4.jpeg", caption: "approved" },
+  { img: "cat5.jpeg", caption: "i can't even-" },
+  { img: "cat6.jpeg", caption: "question mark" },
+  { img: "cat7.jpeg", caption: ":)" },
+  { img: "cat8.jpeg", caption: "screams" },
+  { img: "cat9.jpeg", caption: "thunk" },
+  { img: "cat10.jpeg", caption: "buffering" },
+  { img: "cat11.jpeg", caption: "happy walk" },
+  { img: "cat12.jpeg", caption: "sob" },
+  { img: "cat13.jpeg", caption: "no halp for you" },
+  { img: "cat14.jpeg", caption: "idgaf" },
+  { img: "cat15.jpeg", caption: "cat offensive side eye" }
+];
+
+let index = 0;
+
+const card = document.getElementById("card");
+const img = document.getElementById("image");
+const caption = document.getElementById("caption");
+const paw = document.getElementById("tapPaw");
+
+/* tap paw */
+function showTapPaw(x, y) {
+  paw.style.left = `${x - 14}px`;
+  paw.style.top = `${y - 14}px`;
+  paw.style.opacity = 1;
+  paw.style.transform = "scale(1)";
+  setTimeout(() => {
+    paw.style.opacity = 0;
+    paw.style.transform = "scale(0.8)";
+  }, 180);
+}
+
+/* flipbook / stack flick */
+card.addEventListener("click", (e) => {
+  showTapPaw(e.clientX, e.clientY);
+
+  card.style.transform =
+    `translateY(2px) rotate(${(Math.random() * 2 - 1).toFixed(2)}deg)`;
+
+  setTimeout(() => {
+    index = (index + 1) % cats.length;
+    img.src = cats[index].img;
+    caption.textContent = cats[index].caption;
+  }, 60);
+
+  setTimeout(() => {
+    card.style.transform = "translateY(0) rotate(0deg)";
+  }, 120);
+});
+</script>
+
+</body>
+</html>
