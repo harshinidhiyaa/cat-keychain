@@ -37,16 +37,6 @@ body {
   overflow-x: hidden;
 }
 
-/* date */
-.date {
-  position: fixed;
-  bottom: 12px;
-  right: 14px;
-  font-size: 0.75rem;
-  opacity: 0.55;
-  letter-spacing: 0.05em;
-}
-
 /* title */
 h1 {
   font-family: "Patrick Hand", cursive;
@@ -140,32 +130,30 @@ h1 {
 <h1>what cat do you feel like today?</h1>
 
 <div class="polaroid" id="card">
-  <img id="image" src="cat1.jpeg" alt="">
+  <img id="image" src="cats/cat1.jpeg" alt="">
   <div class="caption" id="caption">let cat eat cake</div>
 </div>
 
 <div class="flip">tap to flip</div>
 <div class="tap-paw" id="tapPaw">🐾</div>
 
-<div class="date">28-02-2026</div>
-
 <script>
 const cats = [
-  { img: "cat1.jpeg", caption: "let cat eat cake" },
-  { img: "cat2.jpeg", caption: "eeeeeh" },
-  { img: "cat3.jpeg", caption: "..." },
-  { img: "cat4.jpeg", caption: "approved" },
-  { img: "cat5.jpeg", caption: "i can't even-" },
-  { img: "cat6.jpeg", caption: "question mark" },
-  { img: "cat7.jpeg", caption: ":)" },
-  { img: "cat8.jpeg", caption: "screams" },
-  { img: "cat9.jpeg", caption: "thunk" },
-  { img: "cat10.jpeg", caption: "buffering" },
-  { img: "cat11.jpeg", caption: "happy walk" },
-  { img: "cat12.jpeg", caption: "sob" },
-  { img: "cat13.jpeg", caption: "no halp for you" },
-  { img: "cat14.jpeg", caption: "idgaf" },
-  { img: "cat15.jpeg", caption: "cat offensive side eye" }
+  { img: "cats/cat1.jpeg", caption: "let cat eat cake" },
+  { img: "cats/cat2.jpeg", caption: "eeeeeh" },
+  { img: "cats/cat3.jpeg", caption: "..." },
+  { img: "cats/cat4.jpeg", caption: "approved" },
+  { img: "cats/cat5.jpeg", caption: "i can't even-" },
+  { img: "cats/cat6.jpeg", caption: "question mark" },
+  { img: "cats/cat7.jpeg", caption: ":)" },
+  { img: "cats/cat8.jpeg", caption: "screams" },
+  { img: "cats/cat9.jpeg", caption: "thunk" },
+  { img: "cats/cat10.jpeg", caption: "buffering" },
+  { img: "cats/cat11.jpeg", caption: "happy walk" },
+  { img: "cats/cat12.jpeg", caption: "sob" },
+  { img: "cats/cat13.jpeg", caption: "no halp for you" },
+  { img: "cats/cat14.jpeg", caption: "idgaf" },
+  { img: "cats/cat15.jpeg", caption: "cat offensive side eye" }
 ];
 
 let index = 0;
